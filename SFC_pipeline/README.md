@@ -1,6 +1,7 @@
 # Spike-Field Coherence analysis of the macaque parietal cortex activity within and across hemispheres  
 
 ## Main scripts  
+**ph_run_LFP_analysis.m** - the function for ppc calculation  
 **MS_plot_PPC.m** - plot ppc before and after inactivation for each epoch and condition  
 **MS_plot_ppc_perunit.m** - plot ppc before and after inactivation for each epoch and condition PER UNIT (averaged across LFP channels)  
 **MS_scatter_per_unit.m** - plot *sctter plots* (one dot - one unit) before and after inactivation to see the overall change of tuning  
@@ -11,7 +12,10 @@
 **MS_FDR_test.m** - False Discovery Rate (FDR) correction for multiple comparisons  
 
 
-### Example input for XX  
+### Example input  
+
+**ph_run_LFP_analysis.m** C:\Users\mslashcheva\Dropbox\DAG\DAG_toolbox\spike_analysis as followinf:  
+**ph_run_LFP_analysis('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn'})**
 
 Loc = 'Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_SF\spike_field_hands_inactivation_ppc1.mat'; %MIP  
 PPC_method='ppc1';  
