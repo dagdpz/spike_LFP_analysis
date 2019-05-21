@@ -12,7 +12,7 @@ The collection of scripts for the simulation of spike-field coherence
 
 ## Additional scripts
 
-**MS_SFCsim_basic.m** - the very basic implementation of simulation 
+**MS_SFCsim_basic.m** - the very basic implementation of simulation
 **MS_SFCsim_bursting.m** - the implementation of bursting spikes
 
 **MS_test_FT_simulate_spike_train.m** - accessory function for the generation of Poissanian spike train
