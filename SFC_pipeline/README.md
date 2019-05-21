@@ -1,0 +1,24 @@
+# Spike-Field Coherence analysis of the macaque parietal cortex activity within and across hemispheres  
+
+## Main scripts  
+**MS_plot_PPC.m** - plot ppc before and after inactivation for each epoch and condition  
+**MS_plot_ppc_perunit.m** - plot ppc before and after inactivation for each epoch and condition PER UNIT (averaged across LFP channels)  
+**MS_scatter_per_unit.m** - plot *sctter plots* (one dot - one unit) before and after inactivation to see the overall change of tuning  
+
+## Additiional functions  
+**MS_perm_test.m** - Cluster-adjusted permutation t-test (as described in Maris & Oostenveld, 2007)  
+**MS_find_clusters.m** - accessory function for finding clusters in permutation test  
+**MS_FDR_test.m** - False Discovery Rate (FDR) correction for multiple comparisons  
+
+
+### Example input for XX  
+
+Loc = 'Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_SF\spike_field_hands_inactivation_ppc1.mat'; %MIP  
+PPC_method='ppc1';  
+hemis = {'MIP_L', 'MIP_R', 'MIP_L_MIP_R', 'MIP_R_MIP_L'};  
+
+for hemi = hemis,  
+    disp(hemi)  
+    hemi = hemi{:};  
+    MS_plot_PPC_v1(Loc, PPC_method, hemi)  
+end  
