@@ -14,7 +14,8 @@
 
 ### Example input  
 
-**ph_run_LFP_analysis.m** C:\Users\mslashcheva\Dropbox\DAG\DAG_toolbox\spike_analysis as followinf:  
+**ph_run_LFP_analysis.m** C:\Users\mslashcheva\Dropbox\DAG\DAG_toolbox\spike_analysis as following:  
+
 **ph_run_LFP_analysis('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn'})**
 
 Loc = 'Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_SF\spike_field_hands_inactivation_ppc1.mat'; %MIP  
