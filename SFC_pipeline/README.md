@@ -4,7 +4,7 @@
 **ph_run_LFP_analysis.m** - the function for ppc calculation  
 **MS_plot_PPC.m** - plot ppc before and after inactivation for each epoch and condition  
 **MS_plot_ppc_perunit.m** - plot ppc before and after inactivation for each epoch and condition PER UNIT (averaged across LFP channels)  
-**MS_scatter_per_unit.m** - plot *sctter plots* (one dot - one unit) before and after inactivation to see the overall change of tuning  
+**MS_scatter_per_unit.m** - plot *scatter plots* (one dot - one unit) before and after inactivation to see the overall change of tuning  
 
 ## Additiional functions  
 **MS_perm_test.m** - Cluster-adjusted permutation t-test (as described in Maris & Oostenveld, 2007)  
