@@ -6,7 +6,7 @@
 **MS_plot_ppc_perunit.m** - plot ppc before and after inactivation for each epoch and condition PER UNIT (averaged across LFP channels)  
 **MS_scatter_per_unit.m** - plot *scatter plots* (one dot - one unit) before and after inactivation to see the overall change of tuning  
 
-## Additiional functions  
+## Additional functions  
 **MS_perm_test.m** - Cluster-adjusted permutation t-test (as described in Maris & Oostenveld, 2007)  
 **MS_find_clusters.m** - accessory function for finding clusters in permutation test  
 **MS_FDR_test.m** - False Discovery Rate (FDR) correction for multiple comparisons  
