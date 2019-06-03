@@ -1,13 +1,13 @@
 function [ scores ] = MS_perm_test(data, keys, PPC_method)
 %MS_T_TESTING Cluster-based corrected permutation t-test 
-%   takes 2 vectors of values as a first variable
+%   takes 2 sets of vectors of values as a first variable
 %   keys - for getting the vector of frequencies (time-points)
 %   PPC_methods - lol, it seems like i am not even using it here
 
 num_perm = 1000;
 cr_value = 1.96; %ttest critical value for 0.05 p
 sing_lev = 0.05;
-clear scores
+clear scores % probably not needed since now it is a function
 
 % frequencies as columns, trials as rows
 pre_data = vertcat(data{1}(:, 1).ppc1);

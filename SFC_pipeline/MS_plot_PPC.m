@@ -1,5 +1,5 @@
 function MS_plot_PPC( spike_field_location, PPC_method, hemi )
-%	Inputs: SFfile_location, PPC_method, hemi
+%	Inputs: SFfile_location (e.g. spike_field_hands_inactivation_ppc1.mat), PPC_method, hemi
 
 %   PPC_method is 'ppc0' or 'ppc1'
 %   hemi is MIP_L, MIP_R, MIP_R_MIP_L, MIP_L_MIP_R
@@ -59,6 +59,7 @@ subset_ind = strcmp(same_hemi_ind, {hemi}) & ~same_site_ind;
 SF_difchan_hemi = SF_combinations(subset_ind);
 LFP_siteID_difchan_hemi = LFP_siteIDs(subset_ind); %LFP channels
 
+% checking the number of unique units (for debug)
 % [b,m,n] = unique([{SF_difchan_hemi.unit_ID}]');
 % single_rate = [SF_difchan_hemi(m).Single_rating];
 % sum(single_rate==1) %SU
@@ -143,12 +144,7 @@ end
 n_unique_units=numel(unique({SF_difchan_hemi(valid_SF_combinations).unit_ID}));
 n_unique_sites=numel(unique({SF_difchan_hemi(valid_SF_combinations).site_ID}));
 disp(['unique_sites:' num2str(n_unique_sites) ' ,unique_units:' num2str(n_unique_units)]);
-% SF_comb_per_cond = [SF_difchan_hemi(valid_SF_combinations).per_condition];
-% 
-% for par=1:numel(Parameters),
-%     all_cond(:, par) = [SF_comb_per_cond.(Parameters{par})];
-%     paridx.(Parameters{par}) = par;
-% end
+
 
 %% Finding the same set of SF pairs within each epoch
 
@@ -304,7 +300,7 @@ close all
 
 end
 
-
+% Plotting part for the initial implementation
 % for row=1:numel(keys.conditions_to_compare)
 %     condition_fieldnames=fieldnames(keys.conditions_to_compare{row});
 %     condition_fieldnames=condition_fieldnames(ismember(condition_fieldnames,Parameters));

@@ -3,7 +3,7 @@
 ## Main scripts  
 **ph_run_LFP_analysis.m** - the function for ppc calculation (part of 'Lukas' DAG ephys pipeline)
 
-Data in Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_SF
+Data in Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_SF (here SF stands for spike-field)
 
 For each session, separate mat files for spikes and LFPs, 
 output is spike_field_hands_inactivation_ppc1.mat
