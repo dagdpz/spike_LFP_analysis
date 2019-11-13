@@ -2,6 +2,7 @@ function ph_run_LFP_analysis(varargin)
 %ph_run_population_analysis('PPC_pulv_eye_hand',{'LIP_dPul_inj_working'},{'pop','ons','sct','ccs'})
 % run from C:\Users\mslashcheva\Dropbox\DAG\DAG_toolbox\spike_analysis
 % run ph_run_LFP_analysis('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn'})
+% MIP_dPul_inj_choi_w_o_20171012
 
 population_analysis_to_perform={'pop','ons','sct','ccs'}; %,'pop'};
 
