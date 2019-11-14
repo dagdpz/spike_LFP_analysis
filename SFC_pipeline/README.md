@@ -15,15 +15,37 @@ output is spike_field_hands_inactivation_ppc1.mat
 ## Additional functions (called from MS_plot_PPC)  
 **MS_perm_test.m** - Cluster-adjusted permutation t-test (as described in Maris & Oostenveld, 2007)  
 **MS_find_clusters.m** - accessory function for finding clusters in permutation test  
-
 plus
-
-**MS_FDR_test.m** - False Discovery Rate (FDR) correction for multiple comparisons (NOT USED IN MS thesis) 
+**MS_FDR_test.m** - False Discovery Rate (FDR) correction for multiple comparisons
 
 
 ### Example input  
 
-**ph_run_LFP_analysis.m** C:\Users\mslashcheva\Dropbox\DAG\DAG_toolbox\spike_analysis as following:  
+
+1. Initially created a folder under PPC_pulv_eye_hand\ephys\ containing the spike and LFP data for the sessions to analyse. In my case this folder is 
+Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_Sarath
+
+2. Create a folder of the same name under C:\Users\snair\Dropbox\DAG\DAG_toolbox\spike_analysis\PPC_pulv_eye_hand and add the settings files (ph_project_version_settings.m and ph_additional_settings.m) in this folder. In my case this folder is C:\Users\snair\Dropbox\DAG\DAG_toolbox\spike_analysis\PPC_pulv_eye_hand\MIP_dPul_inj_working_post_sfn_Sarath. I just copy and pasted the settings file from another folder (MIP_dPul_inj_working_post_sfn_SF)
+
+3. Run ph_run_LFP_analysis('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn_Sarath'})
+
+4. For first time, set calculate_ttest = 1 inside MS_plot_PPC.m and run the following code snippet as specified in the Read me file. 
+
+Loc = 'Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_Sarath\spike_field_hands_inactivation_ppc1.mat'; 
+PPC_method='ppc1';  
+hemis = {'MIP_L', 'MIP_R', 'MIP_L_MIP_R', 'MIP_R_MIP_L'};  
+
+for hemi = hemis,  
+    disp(hemi)  
+    hemi = hemi{:};  
+    MS_plot_PPC(Loc, PPC_method, hemi)  
+    MS_plot_ppc_perunit(Loc, PPC_method, hemi)  
+    MS_scatter_per_unit(Loc, PPC_method, hemi)  
+end
+
+The results will be stored under the same folder as the input LFP and spike data. 
+
+**ph_run_LFP_analysis.m** Dropbox\DAG\DAG_toolbox\spike_analysis ??? as following:  
 
 **ph_run_LFP_analysis('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn'})**
 
