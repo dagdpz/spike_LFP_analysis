@@ -32,6 +32,7 @@ Copy (and modify, if needed) settings file from another folder (e.g. MIP_dPul_in
 
 4. For first time, set calculate_ttest = 1 inside MS_plot_PPC.m and run the following code snippet: 
 
+```
 Loc = 'Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_Sarath\spike_field_hands_inactivation_ppc1.mat'; 
 PPC_method='ppc1';  
 hemis = {'MIP_L', 'MIP_R', 'MIP_L_MIP_R', 'MIP_R_MIP_L'};  
@@ -43,3 +44,4 @@ for hemi = hemis,
     MS_plot_ppc_perunit(Loc, PPC_method, hemi)  
     MS_scatter_per_unit(Loc, PPC_method, hemi)  
 end
+```
