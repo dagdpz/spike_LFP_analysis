@@ -1,13 +1,13 @@
-# Spike-Field Coherence analysis of the macaque parietal cortex activity within and across hemispheres  
+# Spike-Field Coherence analysis (e.g. of the macaque parietal cortex activity within and across hemispheres)  
 
 ## Main scripts  
-**ph_run_LFP_analysis.m** - the function for ppc calculation (part of 'Lukas' DAG ephys pipeline)
+**ph_run_LFP_analysis.m** - the function for ppc calculation (part of 'Lukas' DAG ephys pipeline) 
 
-Data in Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_SF (here SF stands for spike-field)
+Data in specific folder on the server, e.g. Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_SF (here SF stands for spike-field)
 
-For each session, separate mat files for spikes and LFPs, 
-output is spike_field_hands_inactivation_ppc1.mat
+It contains, for each session, separate mat files for spikes and LFPs, output is spike_field_hands_inactivation_ppc1.mat
 
+## Plotting functions
 **MS_plot_PPC.m** - plot ppc before and after inactivation for each epoch and condition  
 **MS_plot_ppc_perunit.m** - plot ppc before and after inactivation for each epoch and condition PER UNIT (averaged across LFP channels)  
 **MS_scatter_per_unit.m** - plot *scatter plots* (one dot - one unit) before and after inactivation to see the overall change of tuning  
@@ -19,17 +19,18 @@ plus
 **MS_FDR_test.m** - False Discovery Rate (FDR) correction for multiple comparisons
 
 
-### Example input  
+### Example usage:  
 
+1. Create a folder on the server, e.g. under PPC_pulv_eye_hand\ephys\ containing the spike and LFP data for the sessions to analyse. 
+e.g. Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_Sarath
 
-1. Initially created a folder under PPC_pulv_eye_hand\ephys\ containing the spike and LFP data for the sessions to analyse. In my case this folder is 
-Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_Sarath
-
-2. Create a folder of the same name under C:\Users\snair\Dropbox\DAG\DAG_toolbox\spike_analysis\PPC_pulv_eye_hand and add the settings files (ph_project_version_settings.m and ph_additional_settings.m) in this folder. In my case this folder is C:\Users\snair\Dropbox\DAG\DAG_toolbox\spike_analysis\PPC_pulv_eye_hand\MIP_dPul_inj_working_post_sfn_Sarath. I just copy and pasted the settings file from another folder (MIP_dPul_inj_working_post_sfn_SF)
+2. Create a folder of the same name under \Dropbox\DAG\DAG_toolbox\spike_analysis\PPC_pulv_eye_hand and add the settings files (ph_project_version_settings.m and ph_additional_settings.m) in this folder. 
+e.g. \Dropbox\DAG\DAG_toolbox\spike_analysis\PPC_pulv_eye_hand\MIP_dPul_inj_working_post_sfn_Sarath. 
+Copy (and modify, if needed) settings file from another folder (e.g. MIP_dPul_inj_working_post_sfn_SF)
 
 3. Run ph_run_LFP_analysis('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn_Sarath'})
 
-4. For first time, set calculate_ttest = 1 inside MS_plot_PPC.m and run the following code snippet as specified in the Read me file. 
+4. For first time, set calculate_ttest = 1 inside MS_plot_PPC.m and run the following code snippet: 
 
 Loc = 'Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_Sarath\spike_field_hands_inactivation_ppc1.mat'; 
 PPC_method='ppc1';  
@@ -42,21 +43,3 @@ for hemi = hemis,
     MS_plot_ppc_perunit(Loc, PPC_method, hemi)  
     MS_scatter_per_unit(Loc, PPC_method, hemi)  
 end
-
-The results will be stored under the same folder as the input LFP and spike data. 
-
-**ph_run_LFP_analysis.m** Dropbox\DAG\DAG_toolbox\spike_analysis ??? as following:  
-
-**ph_run_LFP_analysis('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn'})**
-
-Run this in a script or in a command prompt:
-
-Loc = 'Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_SF\spike_field_hands_inactivation_ppc1.mat'; %MIP  
-PPC_method='ppc1';  
-hemis = {'MIP_L', 'MIP_R', 'MIP_L_MIP_R', 'MIP_R_MIP_L'};  
-
-for hemi = hemis,  
-    disp(hemi)  
-    hemi = hemi{:};  
-    MS_plot_PPC_v1(Loc, PPC_method, hemi)  
-end  
