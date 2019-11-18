@@ -5,7 +5,7 @@
 
 Data in specific folder on the server, e.g. Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_SF (here SF stands for spike-field)
 
-It contains, for each session, separate mat files for spikes and LFPs, output is spike_field_hands_inactivation_ppc1.mat
+It contains, for each session, separate mat files for spikes and LFPs (which are the output of ...), output is spike_field_hands_inactivation_ppc1.mat
 
 ## Plotting functions
 **MS_plot_PPC.m** - plot ppc before and after inactivation for each epoch and condition  
