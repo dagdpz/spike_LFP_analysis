@@ -5,7 +5,7 @@
 
 Data in specific folder on the server, e.g. Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_SF (here SF stands for spike-field)
 
-It contains, for each session, separate mat files for spikes and LFPs (which are the output of ...), output is spike_field_hands_inactivation_ppc1.mat
+It contains, for each session, separate mat files for spikes and LFPs (which are the output of ...LUKAS), output is spike_field_hands_inactivation_ppc1.mat
 
 ## Plotting functions
 **MS_plot_PPC.m** - plot ppc before and after inactivation for each epoch and condition  
@@ -27,6 +27,7 @@ e.g. Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_Sarath
 2. Create a folder of the same name under \Dropbox\DAG\DAG_toolbox\spike_analysis\PPC_pulv_eye_hand and add the settings files (ph_project_version_settings.m and ph_additional_settings.m) in this folder. 
 e.g. \Dropbox\DAG\DAG_toolbox\spike_analysis\PPC_pulv_eye_hand\MIP_dPul_inj_working_post_sfn_Sarath. 
 Copy (and modify, if needed) settings file from another folder (e.g. MIP_dPul_inj_working_post_sfn_SF)
+ph_project_version_settings.m ...LUKAS
 
 3. Run ph_run_LFP_analysis('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn_Sarath'})
 
