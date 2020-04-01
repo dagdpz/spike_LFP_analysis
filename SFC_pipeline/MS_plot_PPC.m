@@ -76,7 +76,7 @@ keys.conditions_to_compare{1}(1).title='LHLS';
 keys.conditions_to_compare{1}(2).reach_hand=1;
 keys.conditions_to_compare{1}(2).hemifield=-1;
 keys.conditions_to_compare{1}(2).choice=0;
-keys.conditions_to_compare{1}(2).perturbation=0;
+keys.conditions_to_compare{1}(2).perturbation=1;
 keys.conditions_to_compare{1}(2).color='r';
 keys.conditions_to_compare{1}(2).title='LHLS';
 
@@ -91,7 +91,7 @@ keys.conditions_to_compare{2}(1).title='LHRS';
 keys.conditions_to_compare{2}(2).reach_hand=1;
 keys.conditions_to_compare{2}(2).hemifield=1;
 keys.conditions_to_compare{2}(2).choice=0;
-keys.conditions_to_compare{2}(2).perturbation=0;
+keys.conditions_to_compare{2}(2).perturbation=1;
 keys.conditions_to_compare{2}(2).color='r';
 keys.conditions_to_compare{2}(2).title='LHRS';
 
@@ -106,7 +106,7 @@ keys.conditions_to_compare{3}(1).title='RHLS';
 keys.conditions_to_compare{3}(2).reach_hand=2;
 keys.conditions_to_compare{3}(2).hemifield=-1;
 keys.conditions_to_compare{3}(2).choice=0;
-keys.conditions_to_compare{3}(2).perturbation=0;
+keys.conditions_to_compare{3}(2).perturbation=1;
 keys.conditions_to_compare{3}(2).color='r';
 keys.conditions_to_compare{3}(2).title='RHLS';
 
@@ -121,7 +121,7 @@ keys.conditions_to_compare{4}(1).title='RHRS';
 keys.conditions_to_compare{4}(2).reach_hand=2;
 keys.conditions_to_compare{4}(2).hemifield=1;
 keys.conditions_to_compare{4}(2).choice=0;
-keys.conditions_to_compare{4}(2).perturbation=0;
+keys.conditions_to_compare{4}(2).perturbation=1;
 keys.conditions_to_compare{4}(2).color='r';
 keys.conditions_to_compare{4}(2).title='RHRS';
 
