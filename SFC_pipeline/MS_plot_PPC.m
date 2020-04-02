@@ -134,7 +134,7 @@ for par=1:numel(Parameters),
     SFidx.(Parameters{par})=arrayfun(@(x) isfield(x.per_condition,Parameters{par}) && numel(unique([x.per_condition.(Parameters{par})]))>1,SF_difchan_hemi);
 end
 
-limit_pairs_by_condition={'hemifield'};
+limit_pairs_by_condition={'perturbation'};
 valid_SF_combinations=true(size(SF_difchan_hemi));
 for L=1:numel(limit_pairs_by_condition)
     valid_SF_combinations = valid_SF_combinations &   SFidx.(limit_pairs_by_condition{L});
