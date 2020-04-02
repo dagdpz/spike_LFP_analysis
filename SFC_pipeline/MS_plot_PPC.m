@@ -129,7 +129,7 @@ epochs = [keys.EPOCHS_PER_TYPE{4}(:,1)'];
 
 
 clear all_cond
-Parameters={'type','effector','reach_hand','choice','perturbation','hemifield'};
+Parameters={'perturbation'};
 for par=1:numel(Parameters),
     SFidx.(Parameters{par})=arrayfun(@(x) isfield(x.per_condition,Parameters{par}) && numel(unique([x.per_condition.(Parameters{par})]))>1,SF_difchan_hemi);
 end
