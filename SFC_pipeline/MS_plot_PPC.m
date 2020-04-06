@@ -57,6 +57,10 @@ subset_ind = strcmp(same_hemi_ind, {hemi}) & ~same_site_ind;
 
 % subset of all the pairs from indicated hemi and different sites
 SF_difchan_hemi = SF_combinations(subset_ind);
+%(BG) Get current hemisphere and load avg unit struct from
+%perturbation table
+current_target = SF_difchan_hemi.target;
+load (['Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_w_o_20171012\perturbation_table\Linus_' current_target '_Ddre_han_avg_units_struct']);
 LFP_siteID_difchan_hemi = LFP_siteIDs(subset_ind); %LFP channels
 
 % checking the number of unique units (for debug)
@@ -193,6 +197,29 @@ for ep=1:numel(epochs)
     unique_un = numel(unique({SF_difchan_hemi_tmp(logical(SF_same_set(:, ep))).unit_ID}));
     
     SF_comb_per_cond = [SF_difchan_hemi_tmp(logical(SF_same_set(:, ep))).per_condition];
+    
+    %Take only unique units present in the pairs and avg struct
+    %(BG)
+    
+    unit_ID_unique_pairs = unique({SF_difchan_hemi_tmp.unit_ID});
+    common_units = [];
+    for unit_IDi=1:numel (unit_ID_unique_pairs)
+        if any(strfind(current_target,'_L'))
+            unit_ID_unique_avg = unique ({avg_unit_epoch_MIP_L.unit_IDs_L});
+            if cellfun(@strcmp, unit_ID_unique_pairs(unit_IDi), unit_ID_unique_avg (unit_IDi)) 
+                common_units = horzcat (common_units, avg_unit_epoch_MIP_L (unit_IDi));
+            else
+                common_units = common_units;
+            end
+        else
+            unit_ID_unique_avg = unique ({avg_unit_epoch_MIP_R.unit_IDs_R});
+            if cellfun(@strcmp, unit_ID_unique_pairs(unit_IDi), unit_ID_unique_avg (unit_IDi)) 
+                common_units = horzcat (common_units, avg_unit_epoch_R_struct (unit_IDi));
+            else
+                common_units = common_units;
+            end
+        end
+    end
 
     clear all_cond
     for par=1:numel(Parameters),
