@@ -198,25 +198,47 @@ for ep=1:numel(epochs)
     
     SF_comb_per_cond = [SF_difchan_hemi_tmp(logical(SF_same_set(:, ep))).per_condition];
     
-    %Take only unique units present in the pairs and avg struct
-    %(BG)
-    
+    %Take only unique units present in the pairs and avg struct and their
+    %avg_unit response from pert_table (BG)
     unit_ID_unique_pairs = unique({SF_difchan_hemi_tmp.unit_ID});
-    common_units = [];
+    common_units_1 = struct('unit_ID', [], 'avg_unit_response',[]);
+    common_units_2 = struct('unit_ID', [], 'avg_unit_response',[]);
+    common_units_0 =struct('unit_ID', [], 'avg_unit_response',[]);
+    counter0=1;
+    counter1=1;
+    counter2=1;
+    
     for unit_IDi=1:numel (unit_ID_unique_pairs)
         if any(strfind(current_target,'_L'))
             unit_ID_unique_avg = unique ({avg_unit_epoch_MIP_L.unit_IDs_L});
             if cellfun(@strcmp, unit_ID_unique_pairs(unit_IDi), unit_ID_unique_avg (unit_IDi)) 
-                common_units = horzcat (common_units, avg_unit_epoch_MIP_L (unit_IDi));
-            else
-                common_units = common_units;
+                if avg_unit_epoch_MIP_L(unit_IDi).(epochs{ep})==0
+                    common_units_0(counter0).unit_ID  = unit_ID_unique_pairs(unit_IDi);
+                    common_units_0(counter0).avg_unit_response = 0;
+                    counter0=counter0+1;
+                elseif avg_unit_epoch_MIP_L(unit_IDi).(epochs{ep})==1
+                    common_units_1(counter1).unit_ID  = unit_ID_unique_pairs(unit_IDi);
+                    common_units_1(counter1).avg_unit_response = 1;
+                    counter1=counter1+1;
+                elseif avg_unit_epoch_MIP_L(unit_IDi).(epochs{ep})==2
+                    common_units_2(counter2).unit_ID  = unit_ID_unique_pairs(unit_IDi);
+                    common_units_2(counter2).avg_unit_response = 2;
+                    counter2=counter2+1;
+                end
             end
         else
             unit_ID_unique_avg = unique ({avg_unit_epoch_MIP_R.unit_IDs_R});
             if cellfun(@strcmp, unit_ID_unique_pairs(unit_IDi), unit_ID_unique_avg (unit_IDi)) 
-                common_units = horzcat (common_units, avg_unit_epoch_R_struct (unit_IDi));
-            else
-                common_units = common_units;
+               if avg_unit_epoch_MIP_R(unit_IDi).(epochs{ep})==0
+                    common_units_0(unit_IDi).unit_ID  = unit_ID_unique_pairs(unit_IDi);
+                    common_units_0(unit_IDi).avg_unit_response = 0;
+                elseif avg_unit_epoch_MIP_R(unit_IDi).(epochs{ep})==1
+                    common_units_1(unit_IDi).unit_ID  = unit_ID_unique_pairs(unit_IDi);
+                    common_units_1(unit_IDi).avg_unit_response = 1; 
+                elseif avg_unit_epoch_MIP_R(unit_IDi).(epochs{ep})==2
+                    common_units_2(unit_IDi).unit_ID  = unit_ID_unique_pairs(unit_IDi);
+                    common_units_2(unit_IDi).avg_unit_response = 2;
+                end
             end
         end
     end
