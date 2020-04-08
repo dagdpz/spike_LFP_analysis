@@ -10,7 +10,7 @@ function MS_plot_PPC( spike_field_location, PPC_method, hemi )
 load(spike_field_location);
 
 plot_from_perturbation_effect = 1;
-perturbation_group = 2;
+perturbation_group = 1;
 calculate_ttest = 1;
 spike_pairs = 2500; 
 bands_v = [4, 8, 12, 30, 100];
@@ -269,10 +269,7 @@ for ep=1:numel(epochs)
 %         end
 %     end
 
-    clear all_cond
-    if isempty(SF_comb_per_cond)
-       continue 
-    end
+    clear all_cond+
     for par=1:numel(Parameters),
         all_cond(:, par) = [SF_comb_per_cond.(Parameters{par})];
         paridx.(Parameters{par}) = par;
