@@ -218,6 +218,7 @@ for ep=1:numel(epochs)
             end   
     end
     SF_comb_per_cond = [SF_difchan_hemi_tmp((logical(SF_same_set(:, ep)) & logical(pert_group_tmp))).per_condition];
+    unique_un = numel(unique({SF_difchan_hemi_tmp((logical(SF_same_set(:, ep)) & logical(pert_group_tmp))).unit_ID}));
     else
     
     SF_comb_per_cond = [SF_difchan_hemi_tmp(logical(SF_same_set(:, ep))).per_condition];

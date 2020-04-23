@@ -210,15 +210,15 @@ for ep=1:numel(epochs)
     for un=1:numel(SF_difchan_hemi_tmp)
        
             if any(strfind(current_target,'_L'))
-                un_ind_tmp = find(strcmp({avg_unit_epoch_MIP_L.unit_ID}, SF_difchan_hemi_tmp(1,un).unit_ID));
-                pert_group_tmp(un,1) = avg_unit_epoch_MIP_L(un_ind_tmp,1).(epochs{ep})== perturbation_group;
-                pert_group_tmp(un,1) = avg_unit_epoch_MIP_L.epochs{ep}(un_ind_tmp) == perturbation_group;
+                un_ind_tmp = find(strcmp(avg_unit_epoch_MIP_L.unit_ID, SF_difchan_hemi_tmp(1,un).unit_ID));    
+                pert_group_tmp(un,1) = avg_unit_epoch_MIP_L.(epochs{ep})(un_ind_tmp,1) == perturbation_group;
             else
-                un_ind_tmp = find(strcmp({avg_unit_epoch_MIP_R.unit}, SF_difchan_hemi_tmp(1,un).unit_ID));
-                pert_group_tmp(un,1) = avg_unit_epoch_MIP_R(un_ind_tmp,1).(epochs{ep})== perturbation_group; 
+                un_ind_tmp = find(strcmp(avg_unit_epoch_MIP_R.unit_ID, SF_difchan_hemi_tmp(1,un).unit_ID));    
+                pert_group_tmp(un,1) = avg_unit_epoch_MIP_R.(epochs{ep})(un_ind_tmp,1) == perturbation_group; 
             end   
     end
     SF_comb_per_cond = [SF_difchan_hemi_tmp((logical(SF_same_set(:, ep)) & logical(pert_group_tmp))).per_condition];
+    unique_un = numel(unique({SF_difchan_hemi_tmp((logical(SF_same_set(:, ep)) & logical(pert_group_tmp))).unit_ID});
     else
     
     SF_comb_per_cond = [SF_difchan_hemi_tmp(logical(SF_same_set(:, ep))).per_condition];
