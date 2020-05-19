@@ -12,7 +12,7 @@ end
 keys=struct;
 project=varargin{1};
 keys=ph_general_settings(project,keys);
-project_specific_settings=[keys.db_folder filesep project filesep 'ph_project_settings.m'];
+project_specific_settings=[keys.db_folder project filesep 'ph_project_settings.m'];
 run(project_specific_settings);
 
 if nargin>1
@@ -81,7 +81,7 @@ for f=1:numel(keys.project_versions) % running multiple versions of the same pro
         keys.arrangement=keys.position_and_plotting_arrangements{a};
         
         spike_field=compute_per_session(keys);
-        save([keys.drive filesep keys.basepath_to_save filesep keys.project_version filesep 'spike_field_' keys.arrangement '_' keys.spike_field.method],'spike_field','keys');
+        save([keys.basepath_to_save keys.project_version filesep 'spike_field_' keys.arrangement '_' keys.spike_field.method],'spike_field','keys');
         
     end
     %             end
@@ -91,7 +91,7 @@ end
 end
 
 function spike_field=compute_per_session(keys)
-session_folder=[keys.drive filesep keys.basepath_to_save filesep keys.project_version filesep];
+session_folder=[keys.basepath_to_save filesep keys.project_version filesep];
 dir_session_folder=dir([session_folder '*.mat']);
 names={dir_session_folder.name};
 population_names=names(cellfun(@(x) any(strfind(x,['population_'])),names));
@@ -155,7 +155,7 @@ for sess=1:numel(population_names)
                 n_unit=n_unit+1;
                 keep_site=1;
             end
-            unitC=ph_arrange_positions_and_plots(unitC.trial(accepted),keys);
+            unitC=ph_arrange_positions_and_plots(keys,unitC.trial(accepted));
             %unitC.trial=unitC.trial(accepted);
             siteC.trial=siteC.trial(accepted);
             
@@ -177,6 +177,9 @@ for sess=1:numel(population_names)
                 AT(AT<timeline(1))=[];
                 timestamps=round((AT-siteC.trial(t).TDT_LFPx_tStart)*siteC.trial(t).TDT_LFPx_SR)+1;
                 nspikesend= nspikesaccum+size(AT,1);
+                if isempty(AT)
+                    continue
+                end
                 % input for FT
                 stsConvol.fourierspctrm{1}(nspikesaccum+1:nspikesend,1,:)=siteC.trial(t).filtered(timestamps,:);
                 stsConvol.trial{1}(nspikesaccum+1:nspikesend,1)=t;
