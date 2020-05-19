@@ -9,7 +9,7 @@ function MS_plot_PPC( spike_field_location, PPC_method, hemi )
 
 load(spike_field_location);
 
-plot_from_perturbation_effect = 1;
+plot_from_perturbation_effect = 0;
 perturbation_group = 2;
 calculate_ttest = 1;
 spike_pairs = 2500; 
@@ -61,8 +61,10 @@ subset_ind = strcmp(same_hemi_ind, {hemi}) & ~same_site_ind;
 SF_difchan_hemi = SF_combinations(subset_ind);
 %(BG) Get current hemisphere and load avg unit struct from
 %perturbation table
+if plot_from_perturbation_effect
 current_target = SF_difchan_hemi.target;
 load (['Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_w_o_20171012\perturbation_table\Linus_' current_target '_Ddre_han_avg_units_struct']);
+end
 LFP_siteID_difchan_hemi = LFP_siteIDs(subset_ind); %LFP channels
 
 % checking the number of unique units (for debug)
@@ -82,7 +84,7 @@ keys.conditions_to_compare{1}(1).title='LHLS';
 keys.conditions_to_compare{1}(2).reach_hand=1;
 keys.conditions_to_compare{1}(2).hemifield=-1;
 keys.conditions_to_compare{1}(2).choice=0;
-keys.conditions_to_compare{1}(2).perturbation=1;
+keys.conditions_to_compare{1}(2).perturbation=0;
 keys.conditions_to_compare{1}(2).color='r';
 keys.conditions_to_compare{1}(2).title='LHLS';
 
@@ -97,7 +99,7 @@ keys.conditions_to_compare{2}(1).title='LHRS';
 keys.conditions_to_compare{2}(2).reach_hand=1;
 keys.conditions_to_compare{2}(2).hemifield=1;
 keys.conditions_to_compare{2}(2).choice=0;
-keys.conditions_to_compare{2}(2).perturbation=1;
+keys.conditions_to_compare{2}(2).perturbation=0;
 keys.conditions_to_compare{2}(2).color='r';
 keys.conditions_to_compare{2}(2).title='LHRS';
 
@@ -112,7 +114,7 @@ keys.conditions_to_compare{3}(1).title='RHLS';
 keys.conditions_to_compare{3}(2).reach_hand=2;
 keys.conditions_to_compare{3}(2).hemifield=-1;
 keys.conditions_to_compare{3}(2).choice=0;
-keys.conditions_to_compare{3}(2).perturbation=1;
+keys.conditions_to_compare{3}(2).perturbation=0;
 keys.conditions_to_compare{3}(2).color='r';
 keys.conditions_to_compare{3}(2).title='RHLS';
 
@@ -127,7 +129,7 @@ keys.conditions_to_compare{4}(1).title='RHRS';
 keys.conditions_to_compare{4}(2).reach_hand=2;
 keys.conditions_to_compare{4}(2).hemifield=1;
 keys.conditions_to_compare{4}(2).choice=0;
-keys.conditions_to_compare{4}(2).perturbation=1;
+keys.conditions_to_compare{4}(2).perturbation=0;
 keys.conditions_to_compare{4}(2).color='r';
 keys.conditions_to_compare{4}(2).title='RHRS';
 
@@ -170,7 +172,7 @@ end
 % sum(SF_same_set)
 
 %
-keys.path_to_save = sprintf('%s\\%s\\SFC_population_%s', [keys.drive, keys.basepath_to_save], keys.project_version, PPC_method);
+keys.path_to_save = sprintf('%s%s\\SFC_population_%s', [keys.basepath_to_save], keys.project_version, PPC_method);
 
 if exist(keys.path_to_save) == 0;
     mkdir(keys.path_to_save);
