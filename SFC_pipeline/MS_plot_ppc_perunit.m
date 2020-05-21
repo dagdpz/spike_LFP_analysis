@@ -154,7 +154,7 @@ for uniq_un=1:numel(uniq_units),
         continue
     end
 %
-    keys.path_to_save = sprintf('%s\\%s\\SFC_perunit_%s\\Mean_per_unit', [keys.drive, keys.basepath_to_save], keys.project_version, hemi);
+    keys.path_to_save = sprintf('%s%s\\SFC_perunit_%s\\Mean_per_unit', [keys.basepath_to_save], keys.project_version, hemi);
     %keys.path_to_save = sprintf('%s\\%s\\SFC_perunit_%s\\Per_site', [keys.drive, keys.basepath_to_save], keys.project_version, hemi);
 
     if exist(keys.path_to_save) == 0;

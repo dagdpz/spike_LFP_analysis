@@ -142,7 +142,7 @@ for par=1:numel(Parameters),
     SFidx.(Parameters{par})=arrayfun(@(x) isfield(x.per_condition,Parameters{par}) && numel(unique([x.per_condition.(Parameters{par})]))>1,SF_difchan_hemi);
 end
 
-limit_pairs_by_condition={'perturbation'};
+limit_pairs_by_condition={'hemifield'};
 valid_SF_combinations=true(size(SF_difchan_hemi));
 for L=1:numel(limit_pairs_by_condition)
     valid_SF_combinations = valid_SF_combinations &   SFidx.(limit_pairs_by_condition{L});
@@ -226,50 +226,7 @@ for ep=1:numel(epochs)
     SF_comb_per_cond = [SF_difchan_hemi_tmp(logical(SF_same_set(:, ep))).per_condition];
     end
     
-%     %Take only unique units present in the pairs and avg struct and their
-%     %avg_unit response from pert_table (BG)
-%     unit_ID_unique_pairs = unique({SF_difchan_hemi_tmp.unit_ID});
-%     common_units_1 = struct('unit_ID', [], 'avg_unit_response',[]);
-%     common_units_2 = struct('unit_ID', [], 'avg_unit_response',[]);
-%     common_units_0 =struct('unit_ID', [], 'avg_unit_response',[]);
-%     counter0=1; 
-%     counter1=1;
-%     counter2=1;
-%     
-%     for unit_IDi=1:numel (unit_ID_unique_pairs)
-%         if any(strfind(current_target,'_L'))
-%             unit_ID_unique_avg = unique ({avg_unit_epoch_MIP_L.unit_IDs_L});
-%             if cellfun(@strcmp, unit_ID_unique_pairs(unit_IDi), unit_ID_unique_avg (unit_IDi)) 
-%                 if avg_unit_epoch_MIP_L(unit_IDi).(epochs{ep})==0
-%                     common_units_0(counter0).unit_ID  = unit_ID_unique_pairs(unit_IDi);
-%                     common_units_0(counter0).avg_unit_response = 0;
-%                     counter0=counter0+1;
-%                 elseif avg_unit_epoch_MIP_L(unit_IDi).(epochs{ep})==1
-%                     common_units_1(counter1).unit_ID  = unit_ID_unique_pairs(unit_IDi);
-%                     common_units_1(counter1).avg_unit_response = 1;
-%                     counter1=counter1+1;
-%                 elseif avg_unit_epoch_MIP_L(unit_IDi).(epochs{ep})==2
-%                     common_units_2(counter2).unit_ID  = unit_ID_unique_pairs(unit_IDi);
-%                     common_units_2(counter2).avg_unit_response = 2;
-%                     counter2=counter2+1;
-%                 end
-%             end
-%         else
-%             unit_ID_unique_avg = unique ({avg_unit_epoch_MIP_R.unit_IDs_R});
-%             if cellfun(@strcmp, unit_ID_unique_pairs(unit_IDi), unit_ID_unique_avg (unit_IDi)) 
-%                if avg_unit_epoch_MIP_R(unit_IDi).(epochs{ep})==0
-%                     common_units_0(unit_IDi).unit_ID  = unit_ID_unique_pairs(unit_IDi);
-%                     common_units_0(unit_IDi).avg_unit_response = 0;
-%                 elseif avg_unit_epoch_MIP_R(unit_IDi).(epochs{ep})==1
-%                     common_units_1(unit_IDi).unit_ID  = unit_ID_unique_pairs(unit_IDi);
-%                     common_units_1(unit_IDi).avg_unit_response = 1; 
-%                 elseif avg_unit_epoch_MIP_R(unit_IDi).(epochs{ep})==2
-%                     common_units_2(unit_IDi).unit_ID  = unit_ID_unique_pairs(unit_IDi);
-%                     common_units_2(unit_IDi).avg_unit_response = 2;
-%                 end
-%             end
-%         end
-%     end
+
 
     clear all_cond
     if isempty(SF_comb_per_cond)
