@@ -52,7 +52,7 @@ keys.conditions_to_compare{1}(1).title='LHLS';
 keys.conditions_to_compare{1}(2).reach_hand=1;
 keys.conditions_to_compare{1}(2).hemifield=-1;
 keys.conditions_to_compare{1}(2).choice=0;
-keys.conditions_to_compare{1}(2).perturbation=1;
+keys.conditions_to_compare{1}(2).perturbation=0;
 keys.conditions_to_compare{1}(2).color='r';
 keys.conditions_to_compare{1}(2).title='LHLS';
 
@@ -67,7 +67,7 @@ keys.conditions_to_compare{2}(1).title='LHRS';
 keys.conditions_to_compare{2}(2).reach_hand=1;
 keys.conditions_to_compare{2}(2).hemifield=1;
 keys.conditions_to_compare{2}(2).choice=0;
-keys.conditions_to_compare{2}(2).perturbation=1;
+keys.conditions_to_compare{2}(2).perturbation=0;
 keys.conditions_to_compare{2}(2).color='r';
 keys.conditions_to_compare{2}(2).title='LHRS';
 
@@ -82,7 +82,7 @@ keys.conditions_to_compare{3}(1).title='RHLS';
 keys.conditions_to_compare{3}(2).reach_hand=2;
 keys.conditions_to_compare{3}(2).hemifield=-1;
 keys.conditions_to_compare{3}(2).choice=0;
-keys.conditions_to_compare{3}(2).perturbation=1;
+keys.conditions_to_compare{3}(2).perturbation=0;
 keys.conditions_to_compare{3}(2).color='r';
 keys.conditions_to_compare{3}(2).title='RHLS';
 
@@ -97,7 +97,7 @@ keys.conditions_to_compare{4}(1).title='RHRS';
 keys.conditions_to_compare{4}(2).reach_hand=2;
 keys.conditions_to_compare{4}(2).hemifield=1;
 keys.conditions_to_compare{4}(2).choice=0;
-keys.conditions_to_compare{4}(2).perturbation=1;
+keys.conditions_to_compare{4}(2).perturbation=0;
 keys.conditions_to_compare{4}(2).color='r';
 keys.conditions_to_compare{4}(2).title='RHRS';
 
@@ -110,7 +110,7 @@ for par=1:numel(Parameters),
     SFidx.(Parameters{par})=arrayfun(@(x) isfield(x.per_condition,Parameters{par}) && numel(unique([x.per_condition.(Parameters{par})]))>1,SF_difchan_hemi);
 end
 
-limit_pairs_by_condition={'perturbation'};
+limit_pairs_by_condition={'hemifield'};
 valid_SF_combinations=true(size(SF_difchan_hemi));
 for L=1:numel(limit_pairs_by_condition)
     valid_SF_combinations = valid_SF_combinations &   SFidx.(limit_pairs_by_condition{L});
@@ -154,7 +154,7 @@ for uniq_un=1:numel(uniq_units),
         continue
     end
 %
-    keys.path_to_save = sprintf('%s\\%s\\SFC_perunit_%s\\Mean_per_unit', [keys.drive, keys.basepath_to_save], keys.project_version, hemi);
+    keys.path_to_save = sprintf('%s%s\\SFC_perunit_%s\\Mean_per_unit', [keys.basepath_to_save], keys.project_version, hemi);
     %keys.path_to_save = sprintf('%s\\%s\\SFC_perunit_%s\\Per_site', [keys.drive, keys.basepath_to_save], keys.project_version, hemi);
 
     if exist(keys.path_to_save) == 0;
@@ -218,7 +218,7 @@ for uniq_un=1:numel(uniq_units),
                 if min(mean(PPC, 1)) < y_min, y_min = min(mean(PPC, 1) - max(sem(PPC,1))); end
                 
                 %plot(keys.LFP.frequencies, PPC, keys.conditions_to_compare{row}(con).color);
-                H(ep) = shadedErrorBar(keys.LFP.frequencies, mean(PPC, 1), sem(PPC,1), keys.conditions_to_compare{row}(con).color);
+                H(ep) = shadedErrorBar(keys.LFP.frequencies, mean(PPC, 1), sem(PPC,1), keys.conditions_to_compare{row}(con).color,1);
                 y_lim=get(gca,'ylim');
                 set(gca,'XScale','log') 
 

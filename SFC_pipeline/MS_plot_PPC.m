@@ -9,7 +9,9 @@ function MS_plot_PPC( spike_field_location, PPC_method, hemi )
 
 load(spike_field_location);
 
-calculate_ttest = 0;
+plot_from_perturbation_effect = 0;
+perturbation_group = 2;
+calculate_ttest = 1;
 spike_pairs = 2500; 
 bands_v = [4, 8, 12, 30, 100];
 SF_combinations = [spike_field.unit];
@@ -57,6 +59,12 @@ subset_ind = strcmp(same_hemi_ind, {hemi}) & ~same_site_ind;
 
 % subset of all the pairs from indicated hemi and different sites
 SF_difchan_hemi = SF_combinations(subset_ind);
+%(BG) Get current hemisphere and load avg unit struct from
+%perturbation table
+if plot_from_perturbation_effect
+current_target = SF_difchan_hemi.target;
+load (['Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_w_o_20171012\perturbation_table\Linus_' current_target '_Ddre_han_avg_units_struct']);
+end
 LFP_siteID_difchan_hemi = LFP_siteIDs(subset_ind); %LFP channels
 
 % checking the number of unique units (for debug)
@@ -76,7 +84,7 @@ keys.conditions_to_compare{1}(1).title='LHLS';
 keys.conditions_to_compare{1}(2).reach_hand=1;
 keys.conditions_to_compare{1}(2).hemifield=-1;
 keys.conditions_to_compare{1}(2).choice=0;
-keys.conditions_to_compare{1}(2).perturbation=1;
+keys.conditions_to_compare{1}(2).perturbation=0;
 keys.conditions_to_compare{1}(2).color='r';
 keys.conditions_to_compare{1}(2).title='LHLS';
 
@@ -91,7 +99,7 @@ keys.conditions_to_compare{2}(1).title='LHRS';
 keys.conditions_to_compare{2}(2).reach_hand=1;
 keys.conditions_to_compare{2}(2).hemifield=1;
 keys.conditions_to_compare{2}(2).choice=0;
-keys.conditions_to_compare{2}(2).perturbation=1;
+keys.conditions_to_compare{2}(2).perturbation=0;
 keys.conditions_to_compare{2}(2).color='r';
 keys.conditions_to_compare{2}(2).title='LHRS';
 
@@ -106,7 +114,7 @@ keys.conditions_to_compare{3}(1).title='RHLS';
 keys.conditions_to_compare{3}(2).reach_hand=2;
 keys.conditions_to_compare{3}(2).hemifield=-1;
 keys.conditions_to_compare{3}(2).choice=0;
-keys.conditions_to_compare{3}(2).perturbation=1;
+keys.conditions_to_compare{3}(2).perturbation=0;
 keys.conditions_to_compare{3}(2).color='r';
 keys.conditions_to_compare{3}(2).title='RHLS';
 
@@ -121,7 +129,7 @@ keys.conditions_to_compare{4}(1).title='RHRS';
 keys.conditions_to_compare{4}(2).reach_hand=2;
 keys.conditions_to_compare{4}(2).hemifield=1;
 keys.conditions_to_compare{4}(2).choice=0;
-keys.conditions_to_compare{4}(2).perturbation=1;
+keys.conditions_to_compare{4}(2).perturbation=0;
 keys.conditions_to_compare{4}(2).color='r';
 keys.conditions_to_compare{4}(2).title='RHRS';
 
@@ -134,7 +142,7 @@ for par=1:numel(Parameters),
     SFidx.(Parameters{par})=arrayfun(@(x) isfield(x.per_condition,Parameters{par}) && numel(unique([x.per_condition.(Parameters{par})]))>1,SF_difchan_hemi);
 end
 
-limit_pairs_by_condition={'perturbation'};
+limit_pairs_by_condition={'hemifield'};
 valid_SF_combinations=true(size(SF_difchan_hemi));
 for L=1:numel(limit_pairs_by_condition)
     valid_SF_combinations = valid_SF_combinations &   SFidx.(limit_pairs_by_condition{L});
@@ -154,6 +162,7 @@ for un=1:numel(SF_difchan_hemi_tmp),
     un_tmp = [SF_difchan_hemi_tmp(un).per_condition];
     un_tmp = un_tmp(logical(~[un_tmp.choice]));
     num_p = zeros(numel(un_tmp), numel(epochs));
+ 
     for cnd=1:numel(un_tmp),
         ep_tmp = [un_tmp(cnd).per_epoch];
         num_p(cnd, :) = [ep_tmp.n_pairs];
@@ -163,15 +172,21 @@ end
 % sum(SF_same_set)
 
 %
-keys.path_to_save = sprintf('%s\\%s\\SFC_population_%s', [keys.drive, keys.basepath_to_save], keys.project_version, PPC_method);
+keys.path_to_save = sprintf('%s%s\\SFC_population_%s', [keys.basepath_to_save], keys.project_version, PPC_method);
 
 if exist(keys.path_to_save) == 0;
     mkdir(keys.path_to_save);
 end
 
+if plot_from_perturbation_effect
+ FigName_short2= sprintf('%s_%s_%d_exc_same_pairs_STAT_%d', hemi,PPC_method, spike_pairs,perturbation_group); %name of the file
+FigName_Long2=sprintf('%s_%s, %d/%d SF pairs, %d spike pairs, perturbation effect %d', ...
+    hemi, PPC_method, sum(valid_SF_combinations), numel(SF_difchan_hemi), spike_pairs, perturbation_group ); % overall title of the figure   
+else
 FigName_short2= sprintf('%s_%s_%d_exc_same_pairs_STAT', hemi,PPC_method, spike_pairs); %name of the file
 FigName_Long2=sprintf('%s_%s, %d/%d SF pairs, %d spike pairs', ...
     hemi, PPC_method, sum(valid_SF_combinations), numel(SF_difchan_hemi), spike_pairs); % overall title of the figure
+end
 set(0,'DefaultTextInterpreter','none');
 wanted_papersize= [40 25];
 h1=figure('outerposition',[0 0 1900 1200],'name', FigName_Long2);
@@ -192,9 +207,31 @@ for ep=1:numel(epochs)
     max_cond = 1;
     unique_un = numel(unique({SF_difchan_hemi_tmp(logical(SF_same_set(:, ep))).unit_ID}));
     
+    
+    if plot_from_perturbation_effect 
+    for un=1:numel(SF_difchan_hemi_tmp)
+       
+            if any(strfind(current_target,'_L'))
+                un_ind_tmp = find(strcmp(avg_unit_epoch_MIP_L.unit_ID, SF_difchan_hemi_tmp(1,un).unit_ID));    
+                pert_group_tmp(un,1) = avg_unit_epoch_MIP_L.(epochs{ep})(un_ind_tmp,1) == perturbation_group;
+            else
+                un_ind_tmp = find(strcmp(avg_unit_epoch_MIP_R.unit_ID, SF_difchan_hemi_tmp(1,un).unit_ID));    
+                pert_group_tmp(un,1) = avg_unit_epoch_MIP_R.(epochs{ep})(un_ind_tmp,1) == perturbation_group; 
+            end   
+    end
+    SF_comb_per_cond = [SF_difchan_hemi_tmp((logical(SF_same_set(:, ep)) & logical(pert_group_tmp))).per_condition];
+    unique_un = numel(unique({SF_difchan_hemi_tmp((logical(SF_same_set(:, ep)) & logical(pert_group_tmp))).unit_ID}));
+    else
+    
     SF_comb_per_cond = [SF_difchan_hemi_tmp(logical(SF_same_set(:, ep))).per_condition];
+    end
+    
+
 
     clear all_cond
+    if isempty(SF_comb_per_cond)
+       continue 
+    end
     for par=1:numel(Parameters),
         all_cond(:, par) = [SF_comb_per_cond.(Parameters{par})];
         paridx.(Parameters{par}) = par;
@@ -244,7 +281,7 @@ for ep=1:numel(epochs)
             end
             if min(mean(PPC, 1)) < y_min, y_min = min(mean(PPC, 1) - max(sem(PPC,1))); end
 
-            H(ep) = shadedErrorBar(keys.LFP.frequencies, mean(PPC, 1), sem(PPC,1), keys.conditions_to_compare{row}(con).color);
+            H(ep) = shadedErrorBar(keys.LFP.frequencies, mean(PPC, 1), sem(PPC,1), keys.conditions_to_compare{row}(con).color,1);
             y_lim=get(gca,'ylim');
             set(gca,'XScale','log') 
             
