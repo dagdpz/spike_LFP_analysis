@@ -90,16 +90,16 @@ for f=1:numel(keys.project_versions) % running multiple versions of the same pro
 end
 end
 
-function spike_field=compute_per_session(keys)
+function spike_field_comp=compute_per_session(keys)
 session_folder=[keys.basepath_to_save filesep keys.project_version filesep];
 dir_session_folder=dir([session_folder '*.mat']);
 names={dir_session_folder.name};
 population_names=names(cellfun(@(x) any(strfind(x,['population_'])),names));
 
 tic
-n_site=1;
 for sess=1:numel(population_names)
-    clear population sites
+    clear population sites spike_field
+n_site=1;
     load([session_folder population_names{sess}]);
     load([session_folder 'sites' population_names{sess}(11:end)]);
     
@@ -295,6 +295,12 @@ for sess=1:numel(population_names)
         end
     end
     
+    save([keys.basepath_to_save keys.project_version filesep 'spike_field_' keys.arrangement '_' keys.spike_field.method '_' population_names{sess}(end-11:end-4)],'spike_field','keys');
+    if sess==1
+        spike_field_comp=spike_field;
+    else
+        spike_field_comp=[spike_field_comp spike_field];
+    end
 end
 toc
 
