@@ -21,20 +21,18 @@ plus
 
 ### Example usage:  
 
-1. Create a folder on the server, e.g. under PPC_pulv_eye_hand\ephys\ containing the spike and LFP data for the sessions to analyse. 
-e.g. Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_Sarath
+1. run the spike analysis pipeline (with desired settings) from github. e.g Run ph_initiation('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn_Sarath'})
 
-2. Create a folder of the same name under \Dropbox\DAG\DAG_toolbox\spike_analysis\PPC_pulv_eye_hand and add the settings files (ph_project_version_settings.m and ph_additional_settings.m) in this folder. 
-e.g. \Dropbox\DAG\DAG_toolbox\spike_analysis\PPC_pulv_eye_hand\MIP_dPul_inj_working_post_sfn_Sarath. 
-Copy (and modify, if needed) settings file from another folder (e.g. MIP_dPul_inj_working_post_sfn_SF)
-ph_project_version_settings.m ...LUKAS
 
-3. Run ph_run_LFP_analysis('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn_Sarath'})
 
-4. For first time, set calculate_ttest = 1 inside MS_plot_PPC.m and run the following code snippet: 
+2. Run ph_run_LFP_analysis('PPC_pulv_eye_hand',{'MIP_dPul_inj_working_post_sfn_Sarath'})
 
+3. For first time, set calculate_ttest = 1 inside MS_plot_PPC.m and run the following code snippet: 
+
+
+4.
 ```
-Loc = 'Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_Sarath\spike_field_hands_inactivation_ppc1.mat'; 
+Loc = 'Y:\Projects\PPC_pulv_eye_hand\ephys\MIP_dPul_inj_working_post_sfn_Sarath\'; 
 PPC_method='ppc1';  
 hemis = {'MIP_L', 'MIP_R', 'MIP_L_MIP_R', 'MIP_R_MIP_L'};  
 
