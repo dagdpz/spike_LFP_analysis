@@ -80,9 +80,9 @@ for f=1:numel(keys.project_versions) % running multiple versions of the same pro
         
         keys.arrangement=keys.position_and_plotting_arrangements{a};
         
-        spike_field=compute_per_session(keys);
-        save([keys.basepath_to_save keys.project_version filesep 'spike_field_' keys.arrangement '_' keys.spike_field.method],'spike_field','keys');
-        
+         spike_field=compute_per_session(keys);
+         save([keys.basepath_to_save keys.project_version filesep 'spike_field_' keys.arrangement '_' keys.spike_field.method],'spike_field','keys');
+         
     end
     %             end
     %         end
@@ -244,17 +244,17 @@ for sess=1:numel(population_names)
                         n_pairs=n_pairs+sum(sts_epo.trial{1}~=temp_t)*sum(sts_epo.trial{1}==temp_t)/2;
                     end
                     
-                    statStsEp           = ft_spiketriggeredspectrum_stat(keys.spike_field,sts_epo);
+%                     statStsEp           = ft_spiketriggeredspectrum_stat(keys.spike_field,sts_epo);
                     
-                    current_epoch.(keys.spike_field.method)=statStsEp.(keys.spike_field.method);
-                    current_epoch.epoch=EPOCHS{e,1};
-                    current_epoch.n_pairs=n_pairs;
-                    if numel(current_epoch.(keys.spike_field.method))==1 %|| n_pairs<100 %% no spike
-                        current_epoch.(keys.spike_field.method)=NaN(1,numel(keys.LFP.Morlet_Matrix));
-                    elseif any(isinf(current_epoch.(keys.spike_field.method))) %% one spike?
-                        disp(['INF: ' num2str(numel(isinf(current_epoch.(keys.spike_field.method))))]);
-                        current_epoch.(keys.spike_field.method)(isinf(current_epoch.(keys.spike_field.method)))=NaN;
-                    end
+%                     current_epoch.(keys.spike_field.method)=statStsEp.(keys.spike_field.method);
+%                     current_epoch.epoch=EPOCHS{e,1};
+%                     current_epoch.n_pairs=n_pairs;
+%                     if numel(current_epoch.(keys.spike_field.method))==1 %|| n_pairs<100 %% no spike
+%                         current_epoch.(keys.spike_field.method)=NaN(1,numel(keys.LFP.Morlet_Matrix));
+%                     elseif any(isinf(current_epoch.(keys.spike_field.method))) %% one spike?
+%                         disp(['INF: ' num2str(numel(isinf(current_epoch.(keys.spike_field.method))))]);
+%                         current_epoch.(keys.spike_field.method)(isinf(current_epoch.(keys.spike_field.method)))=NaN;
+%                     end
                     
                     %% LFP part (to take out later, because it does not belong here at all!!
                     clear power_spect
