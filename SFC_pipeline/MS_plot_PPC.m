@@ -117,14 +117,14 @@ LFP_siteID_difchan_hemi = LFP_siteIDs(subset_ind); %LFP channels
 % keys.conditions_to_compare{2}(2).title='Ipsilesional space';
 
 %  simultaneous contra vs ipsi 
-keys.conditions_to_compare{1}(1).reach_hand=0;
+keys.conditions_to_compare{1}(1).reach_hand=1;
 keys.conditions_to_compare{1}(1).hemifield=1;
 keys.conditions_to_compare{1}(1).choice=0;
 keys.conditions_to_compare{1}(1).perturbation=0;
 keys.conditions_to_compare{1}(1).color={'-','color',[0 119 255]/255};
 keys.conditions_to_compare{1}(1).title='Ipsi';
 
-keys.conditions_to_compare{1}(2).reach_hand=0;
+keys.conditions_to_compare{1}(2).reach_hand=1;
 keys.conditions_to_compare{1}(2).hemifield=1;
 keys.conditions_to_compare{1}(2).choice=1;
 keys.conditions_to_compare{1}(2).perturbation=0;
@@ -132,14 +132,14 @@ keys.conditions_to_compare{1}(2).color={'--','color',[0 119 255]/255};
 keys.conditions_to_compare{1}(2).title='Ipsi';
 
 
-keys.conditions_to_compare{2}(1).reach_hand=0;
+keys.conditions_to_compare{2}(1).reach_hand=1;
 keys.conditions_to_compare{2}(1).hemifield=-1;
 keys.conditions_to_compare{2}(1).choice=0;
 keys.conditions_to_compare{2}(1).perturbation=0;
 keys.conditions_to_compare{2}(1).color={'-','color',[255 102 0]/255};
 keys.conditions_to_compare{2}(1).title='Contra';
 
-keys.conditions_to_compare{2}(2).reach_hand=0;
+keys.conditions_to_compare{2}(2).reach_hand=1;
 keys.conditions_to_compare{2}(2).hemifield=-1;
 keys.conditions_to_compare{2}(2).choice=1;
 keys.conditions_to_compare{2}(2).perturbation=0;
